@@ -35,12 +35,12 @@ public class NextPrimeNumber {
     double head = previous - 2;
     double tail = 2;
     for(double number = previous + 1; next == 0; number++) {
-      int mod_head = (int)(number - head) % 2;
-      int mod_tail = (int)(number - tail) % 2;
+      int modHead = (int)(number - head) % 2;
+      int modTail = (int)(number - tail) % 2;
       if(number < 0) {
         throw new RuntimeException("Posible number overflow.");
       }
-      if(mod_head == 0 && mod_tail == 1 && !OddCompositeNumber.validate(number)) {
+      if(modHead == 0 && modTail == 1 && !OddCompositeNumber.validate(number)) {
         next = number;
       }
     }
