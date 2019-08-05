@@ -1,5 +1,5 @@
 # prime-number-finder
-Java library that find the next closest prime number from any number given, without know previous information about the input number.
+Java library that find the next closest prime number from any number given, using odd composite numbers.
 
 ### Test with:
 ```java
