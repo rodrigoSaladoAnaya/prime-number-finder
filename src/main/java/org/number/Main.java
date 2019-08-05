@@ -32,7 +32,7 @@ public class Main {
     double previous = Double.parseDouble(args[0]);
     System.out.format("1) Finding next prime from [%s]\n", previous);
     double next = NextPrimeNumber.from(previous);
-    float tDelta= System.currentTimeMillis() - tStart;
+    float tDelta = System.currentTimeMillis() - tStart;
     System.out.format("2) The next prime number from [%s] is [%s] (%s) ms\n", previous, next, tDelta);
   }
 }

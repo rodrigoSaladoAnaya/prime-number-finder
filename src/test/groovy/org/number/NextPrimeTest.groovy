@@ -34,7 +34,7 @@ class NextPrimeTest  extends Specification {
     double fromN = 104743
     double toN = 104759
 
-    for(int number = fromN; number < toN; number++) {
+    (fromN..toN).each { number ->
       def t1 = System.currentTimeMillis()
       double result = org.number.NextPrimeNumber.from(number)
       def t2 = System.currentTimeMillis() - t1
