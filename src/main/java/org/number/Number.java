@@ -31,13 +31,13 @@ public class Number {
     boolean isValid = false;
     double jLimit = Math.ceil(Math.log(number) + number / 2);
     double iLimit = Math.ceil(Math.sqrt(number - jLimit) - 2);
-    for(float i = 0; i <= iLimit && !isValid; i++) {
-      for(double j = i; j <= jLimit && !isValid; j++) {
+    for(double i = 0; i < iLimit && !isValid; i++) {
+      double base = ((2 * i + 3) * 5) - ((2 * i + 3) * 3);
+      double factor = number / base;
+      if(factor*10 % 1 == 0) {
+        double j = Math.floor(number/base)-1;
         double next = (2 * i + 3) * (2 * j + 3);
-        if(number + iLimit < next) { break; }
-        if(next == number) {
-          isValid = true;
-        }
+        isValid = next == number;
       }
     }
     return isValid;
