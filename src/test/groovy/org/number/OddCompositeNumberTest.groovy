@@ -20,23 +20,33 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-package org.number;
+package org.number
 
-import ch.obermuhlner.math.big.BigDecimalMath;
 
-import java.math.BigDecimal;
+import spock.lang.Specification
 
 /**
  * @author rodrigo_salado
  */
-public class Main {
+class OddCompositeNumberTest extends Specification {
 
-  public static void main(String[] args) {
-    float tStart = System.currentTimeMillis();
-    BigDecimal previous = BigDecimalMath.toBigDecimal(args[0]);
-    System.out.format("1) Finding next prime nextPrimeFrom [%s]\n", previous);
-    BigDecimal next = Number.nextPrimeFrom(previous);
-    float tDelta = System.currentTimeMillis() - tStart;
-    System.out.format("2) The next prime number nextPrimeFrom [%s] is [%s] (%s) ms\n", previous, next, tDelta);
+  def "Test file from 3"() {
+    setup:
+
+    BigDecimal number = BigDecimal.valueOf(195)
+    def isOddComNum1 = Number.isOddCompositeNumber(number)
+    def isOddComNum2 = Number._isOddCompositeNumber(number)
+    expect:
+    isOddComNum1 == isOddComNum2
+  }
+
+  def "Test file from 4"() {
+    setup:
+
+    BigDecimal number = BigDecimal.valueOf(195)
+    def isOddComNum1 = Number.nextPrimeFrom(number)
+    def isOddComNum2 = Number._nextPrimeFrom(number)
+    expect:
+    isOddComNum1 == isOddComNum2
   }
 }

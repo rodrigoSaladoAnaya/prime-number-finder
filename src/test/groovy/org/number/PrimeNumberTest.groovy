@@ -31,12 +31,12 @@ class PrimeNumberTest extends Specification {
 
   def "Test all number from 104743 to 104759"() {
     setup:
-    double fromN = 104743
-    double toN = 104759
+    BigDecimal fromN = 104743
+    BigDecimal toN = 104759
 
     (fromN..toN).each { number ->
       def t1 = System.currentTimeMillis()
-      double result = Number.nextPrimeFrom(number)
+      BigDecimal result = Number.nextPrimeFrom(number)
       def t2 = System.currentTimeMillis() - t1
       println "${number} -> ${result} == ${toN} (${t2}ms)"
       expect:

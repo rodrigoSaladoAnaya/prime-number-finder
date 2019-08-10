@@ -1,19 +1,21 @@
 plugins {
-    id 'java'
-    id 'application'
-    id 'groovy'
+  id 'java'
+  id 'application'
+  id 'groovy'
 }
 
 repositories {
-    jcenter()
+  jcenter()
 }
 
 dependencies {
-    testImplementation 'org.codehaus.groovy:groovy-all:2.5.6'
-    testImplementation 'org.spockframework:spock-core:1.2-groovy-2.5'
-    testImplementation 'junit:junit:4.12'
+  implementation 'ch.obermuhlner:big-math:2.1.0'
+
+  testImplementation 'org.codehaus.groovy:groovy-all:2.5.6'
+  testImplementation 'org.spockframework:spock-core:1.2-groovy-2.5'
+  testImplementation 'junit:junit:4.12'
 }
 
 application {
-    mainClassName = 'org.number.Main'
+  mainClassName = 'org.number.Main'
 }

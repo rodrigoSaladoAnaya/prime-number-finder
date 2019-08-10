@@ -39,9 +39,9 @@ class FileWithPrimesTest extends Specification {
     for(int i = 3; i < primes.size; i++) {
       def t1 = System.currentTimeMillis()
       if(primes[i+1] != null) {
-        double next = primes[i+1]
-        double previous = primes[i]
-        double result = Number.nextPrimeFrom(previous)
+        BigDecimal next = primes[i+1]
+        BigDecimal previous = primes[i]
+        BigDecimal result = Number.nextPrimeFrom(previous)
         def t2 = System.currentTimeMillis() - t1
         println "${previous} -> ${next} == ${result} ${next == result} (${t2}ms)"
         expect:

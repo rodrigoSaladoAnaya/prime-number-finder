@@ -22,19 +22,37 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 
 package org.number;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
+
+import static ch.obermuhlner.math.big.BigDecimalMath.log;
+import static ch.obermuhlner.math.big.BigDecimalMath.sqrt;
+import static java.math.BigDecimal.ONE;
+import static java.math.BigDecimal.ZERO;
+import static java.math.RoundingMode.CEILING;
+import static java.math.RoundingMode.FLOOR;
+
 /**
  * @author rodrigo_salado
  */
 public class Number {
 
-  public static boolean isOddCompositeNumber(double number) {
+  public final static BigDecimal TOW = BigDecimal.valueOf(2);
+  public final static BigDecimal THREE = BigDecimal.valueOf(3);
+  public final static BigDecimal FIVE = BigDecimal.valueOf(5);
+  public final static BigDecimal TEN = BigDecimal.valueOf(10);
+  public final static MathContext mathContext = new MathContext(15);
+
+
+  public static boolean _isOddCompositeNumber(double number) {
     boolean isValid = false;
     double jLimit = Math.ceil(Math.log(number) + number / 2);
     double iLimit = Math.ceil(Math.sqrt(number - jLimit) - 2);
     for(double i = 0; i < iLimit && !isValid; i++) {
       double base = ((2 * i + 3) * 5) - ((2 * i + 3) * 3);
-      double factor = number / base;
-      if(factor*10 % 1 == 0) {
+      double quotient = number / base;
+      if(quotient*10 % 1 == 0) {
         double j = Math.floor(number/base)-1;
         double next = (2 * i + 3) * (2 * j + 3);
         isValid = next == number;
@@ -43,7 +61,27 @@ public class Number {
     return isValid;
   }
 
-  public static double nextPrimeFrom(double previous) {
+  public static boolean isOddCompositeNumber(BigDecimal number) {
+    boolean isValid = false;
+    BigDecimal jLimit = log(number, mathContext).add(number.divide(TOW)).setScale(0, CEILING);
+    BigDecimal iLimit = sqrt(number.subtract(jLimit), mathContext).subtract(TOW).setScale(0, CEILING);
+    for(BigDecimal i = ZERO; i.compareTo(iLimit) == -1 && !isValid; i = i.add(ONE)) {
+      if(i.remainder(new BigDecimal(1_000_000)).compareTo(ZERO) == 0) {
+        System.out.println("\n["+number+"] i: " + i + " from " + iLimit + " ("+(iLimit.subtract(i))+")");
+      }
+      BigDecimal base = TOW.multiply(i).add(THREE).multiply(FIVE).subtract(TOW.multiply(i).add(THREE).multiply(THREE));
+      BigDecimal quotient = number.divide(base, 16, RoundingMode.CEILING);
+      if(quotient.multiply(TEN).remainder(ONE).compareTo(ZERO) == 0) {
+        BigDecimal j = number.divide(base, FLOOR).subtract(ONE);
+        BigDecimal next = TOW.multiply(i).add(THREE).multiply(TOW.multiply(j).add(THREE));
+        System.out.println("  ("+i+", "+j+") -> " + next);
+        isValid = next.equals(number);
+      }
+    }
+    return isValid;
+  }
+
+  public static double _nextPrimeFrom(double previous) {
     if(previous % 2 == 0) {
       previous--;
     }
@@ -56,11 +94,29 @@ public class Number {
       if(number < 0) {
         throw new RuntimeException("Posible number overflow.");
       }
+      if(modHead == 0 && modTail == 1 && !Number._isOddCompositeNumber(number)) {
+        next = number;
+      }
+    }
+    return next;
+  }
+
+  public static BigDecimal nextPrimeFrom(BigDecimal previous) {
+    if(previous.remainder(TOW).compareTo(ZERO) == 0) {
+      previous = previous.subtract(ONE);
+    }
+    BigDecimal next = ZERO;
+    BigDecimal head = previous.subtract(TOW);
+    BigDecimal tail = TOW;
+    for(BigDecimal number = previous.add(ONE); next.compareTo(ZERO) == 0; number = number.add(ONE)) {
+      int modHead = number.subtract(head).remainder(TOW).intValue();
+      int modTail = number.subtract(tail).remainder(TOW).intValue();
       if(modHead == 0 && modTail == 1 && !Number.isOddCompositeNumber(number)) {
         next = number;
       }
     }
     return next;
   }
+
 
 }
