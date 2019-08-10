@@ -41,7 +41,7 @@ class FileWithPrimesTest extends Specification {
       if(primes[i+1] != null) {
         double next = primes[i+1]
         double previous = primes[i]
-        double result = org.number.NextPrimeNumber.from(previous)
+        double result = Number.nextPrimeFrom(previous)
         def t2 = System.currentTimeMillis() - t1
         println "${previous} -> ${next} == ${result} ${next == result} (${t2}ms)"
         expect:

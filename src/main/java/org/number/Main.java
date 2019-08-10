@@ -30,9 +30,9 @@ public class Main {
   public static void main(String[] args) {
     float tStart = System.currentTimeMillis();
     double previous = Double.parseDouble(args[0]);
-    System.out.format("1) Finding next prime from [%s]\n", previous);
-    double next = NextPrimeNumber.from(previous);
+    System.out.format("1) Finding next prime nextPrimeFrom [%s]\n", previous);
+    double next = Number.nextPrimeFrom(previous);
     float tDelta = System.currentTimeMillis() - tStart;
-    System.out.format("2) The next prime number from [%s] is [%s] (%s) ms\n", previous, next, tDelta);
+    System.out.format("2) The next prime number nextPrimeFrom [%s] is [%s] (%s) ms\n", previous, next, tDelta);
   }
 }

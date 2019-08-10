@@ -25,9 +25,9 @@ package org.number;
 /**
  * @author rodrigo_salado
  */
-public class OddCompositeNumber {
+public class Number {
 
-  public static boolean validate(double number) {
+  public static boolean isOddCompositeNumber(double number) {
     boolean isValid = false;
     double jLimit = Math.ceil(Math.log(number) + number / 2);
     double iLimit = Math.ceil(Math.sqrt(number - jLimit) - 2);
@@ -42,4 +42,25 @@ public class OddCompositeNumber {
     }
     return isValid;
   }
+
+  public static double nextPrimeFrom(double previous) {
+    if(previous % 2 == 0) {
+      previous--;
+    }
+    double next = 0;
+    double head = previous - 2;
+    double tail = 2;
+    for(double number = previous + 1; next == 0; number++) {
+      int modHead = (int)(number - head) % 2;
+      int modTail = (int)(number - tail) % 2;
+      if(number < 0) {
+        throw new RuntimeException("Posible number overflow.");
+      }
+      if(modHead == 0 && modTail == 1 && !Number.isOddCompositeNumber(number)) {
+        next = number;
+      }
+    }
+    return next;
+  }
+
 }

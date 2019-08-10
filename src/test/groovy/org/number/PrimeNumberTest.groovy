@@ -20,30 +20,27 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-package org.number;
+package org.number
+
+import spock.lang.Specification
 
 /**
  * @author rodrigo_salado
  */
-public class NextPrimeNumber {
+class PrimeNumberTest extends Specification {
 
-  public static double from(double previous) {
-    if(previous % 2 == 0) {
-      previous--;
+  def "Test all number from 104743 to 104759"() {
+    setup:
+    double fromN = 104743
+    double toN = 104759
+
+    (fromN..toN).each { number ->
+      def t1 = System.currentTimeMillis()
+      double result = Number.nextPrimeFrom(number)
+      def t2 = System.currentTimeMillis() - t1
+      println "${number} -> ${result} == ${toN} (${t2}ms)"
+      expect:
+      result == toN
     }
-    double next = 0;
-    double head = previous - 2;
-    double tail = 2;
-    for(double number = previous + 1; next == 0; number++) {
-      int modHead = (int)(number - head) % 2;
-      int modTail = (int)(number - tail) % 2;
-      if(number < 0) {
-        throw new RuntimeException("Posible number overflow.");
-      }
-      if(modHead == 0 && modTail == 1 && !OddCompositeNumber.validate(number)) {
-        next = number;
-      }
-    }
-    return next;
   }
 }

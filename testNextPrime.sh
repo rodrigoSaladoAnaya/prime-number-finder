@@ -1,1 +1,1 @@
-./gradlew clean test --tests NextPrimeTest --info
+./gradlew clean test --tests PrimeNumberTest --info
