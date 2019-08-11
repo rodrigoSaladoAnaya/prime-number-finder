@@ -30,8 +30,9 @@ public class Number {
   public static boolean isOddCompositeNumber(double number) {
     boolean isValid = false;
     double base = 2;
-    double jLimit = Math.ceil(Math.log(number) + number / 2);
-    double iLimit = Math.ceil(Math.sqrt(number - jLimit) - 2);
+    double limitPartA = Math.log(number) + number / 2;
+    double limitPartB = Math.ceil(Math.sqrt(number - limitPartA) / 4);
+    double iLimit = limitPartB - (limitPartB/4);
     for(double i = 0; i < iLimit && !isValid; i++) {
       base += 4;
       double quotient = number/base;
