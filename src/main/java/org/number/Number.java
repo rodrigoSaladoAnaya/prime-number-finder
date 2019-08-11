@@ -29,12 +29,14 @@ public class Number {
 
   public static boolean isOddCompositeNumber(double number) {
     boolean isValid = false;
+    double base = 2;
     double jLimit = Math.ceil(Math.log(number) + number / 2);
     double iLimit = Math.ceil(Math.sqrt(number - jLimit) - 2);
     for(double i = 0; i < iLimit && !isValid; i++) {
-      double base = ((2 * i + 3) * 5) - ((2 * i + 3) * 3);
-      double factor = number / base;
-      if(factor*10 % 1 == 0) {
+      base += 4;
+      double quotient = number/base;
+      isValid = quotient % 0.5 == 0;
+      if(isValid) {
         double j = Math.floor(number/base)-1;
         double next = (2 * i + 3) * (2 * j + 3);
         isValid = next == number;
