@@ -36,14 +36,16 @@ class FileWithPrimesTest extends Specification {
     file.eachLine { n ->
       primes << (n as int)
     }
-    for(int i = 3; i < primes.size; i++) {
+    for(int i = 0; i < primes.size(); i++) {
       def t1 = System.currentTimeMillis()
       if(primes[i+1] != null) {
-        BigDecimal next = primes[i+1]
-        BigDecimal previous = primes[i]
-        BigDecimal result = Number.nextPrimeFrom(previous)
+        def next = primes[i+1]
+        def previous = primes[i]
+        def result = Number.nextPrimeFrom(previous)
         def t2 = System.currentTimeMillis() - t1
-        println "${previous} -> ${next} == ${result} ${next == result} (${t2}ms)"
+        if(next != result) {
+          println "previous: ${previous},  next: ${next} -> result: ${result} == ${next == result} (${t2}ms)"
+        }
         expect:
         next == result
       }

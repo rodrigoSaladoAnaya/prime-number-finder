@@ -29,6 +29,7 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 
 import static ch.obermuhlner.math.big.BigDecimalMath.log;
+import static ch.obermuhlner.math.big.BigDecimalMath.sqrt;
 import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.ZERO;
 import static java.math.RoundingMode.CEILING;
@@ -42,15 +43,16 @@ public class Number {
   public final static BigDecimal TOW = BigDecimal.valueOf(2);
   public final static BigDecimal THREE = BigDecimal.valueOf(3);
   public final static BigDecimal FOUR = BigDecimal.valueOf(4);
+  public final static BigDecimal FIVE = BigDecimal.valueOf(5);
   public final static MathContext mathContext = new MathContext(15);
 
 
   public static boolean _isOddCompositeNumber(double number) {
     boolean isValid = false;
     double base = 2;
-    double limitPartA = Math.log(number) + number / 2;
-    double limitPartB = Math.ceil(Math.sqrt(number - limitPartA) / 4);
-    double iLimit = Math.floor(limitPartB - (limitPartB / 4));
+    double aLimit = Math.ceil(Math.log(number) + number / 2);
+    double bLimit = Math.ceil(Math.sqrt(number - aLimit));
+    double iLimit = Math.ceil(bLimit - (bLimit / 4));
     for(double i = 0; i < iLimit && !isValid; i++) {
       base += 4;
       double quotient = number / base;
@@ -67,18 +69,19 @@ public class Number {
   public static boolean isOddCompositeNumber(BigDecimal number) {
     boolean isValid = false;
     BigDecimal base = TOW;
-    BigDecimal limitPartA = log(number, mathContext).add(number.divide(TOW));
-    BigDecimal limitPartB = BigDecimalMath.sqrt(number.subtract(limitPartA), mathContext).divide(FOUR).setScale(0, FLOOR);
-    BigDecimal iLimit = limitPartB.subtract(limitPartB.divide(FOUR)).setScale(0, CEILING);
-    System.out.println("["+number+"], limit: " + iLimit);
+    BigDecimal aLimit = log(number, mathContext).add(number.divide(TOW)).setScale(0, CEILING);
+    BigDecimal bLimit = sqrt(number.subtract(aLimit), mathContext).setScale(0, CEILING);
+    BigDecimal iLimit = bLimit.subtract(bLimit.divide(FOUR)).setScale(0, CEILING);
     for(BigDecimal i = ZERO; i.compareTo(iLimit) == -1 && !isValid; i = i.add(ONE)) {
       base = base.add(FOUR);
       BigDecimal quotient = number.divide(base, 16, RoundingMode.CEILING);
       isValid = quotient.remainder(BigDecimal.valueOf(0.5)).compareTo(ZERO) == 0;
       if(isValid) {
         BigDecimal j = number.divide(base, FLOOR).subtract(ONE);
-        System.out.println("  -> j: " + j);
         BigDecimal next = TOW.multiply(i).add(THREE).multiply(TOW.multiply(j).add(THREE));
+        if(i.compareTo(iLimit) != -1) {
+          System.out.println("["+number+"]  bLimit: " + bLimit + ", iLimit: " + iLimit + ", i: " + i);
+        }
         isValid = next.equals(number);
       }
     }
@@ -121,5 +124,5 @@ public class Number {
     }
     return next;
   }
-  
+
 }
