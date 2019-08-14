@@ -79,9 +79,6 @@ public class Number {
       if(isValid) {
         BigDecimal j = number.divide(base, FLOOR).subtract(ONE);
         BigDecimal next = TOW.multiply(i).add(THREE).multiply(TOW.multiply(j).add(THREE));
-        if(i.compareTo(iLimit) != -1) {
-          System.out.println("["+number+"]  bLimit: " + bLimit + ", iLimit: " + iLimit + ", i: " + i);
-        }
         isValid = next.equals(number);
       }
     }
