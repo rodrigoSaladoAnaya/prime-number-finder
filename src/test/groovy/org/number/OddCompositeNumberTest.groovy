@@ -30,20 +30,20 @@ import spock.lang.Specification
  */
 class OddCompositeNumberTest extends Specification {
 
-  def "Test file from 3"() {
+  def "Test new isOddCompositeNumber with bigdecimal"() {
     setup:
 
-    BigDecimal number = BigDecimal.valueOf(195)
-    def isOddComNum1 = Number.isOddCompositeNumber(number)
-    def isOddComNum2 = Number._isOddCompositeNumber(number)
+    BigDecimal number = BigDecimal.valueOf(51993)
+    def isOddComNum1 = Number._isOddCompositeNumber(number)
+    def isOddComNum2 = Number.isOddCompositeNumber(number)
     expect:
     isOddComNum1 == isOddComNum2
   }
 
-  def "Test file from 4"() {
+  def "Test new nextPrimeFrom with bigdecimal"() {
     setup:
 
-    BigDecimal number = BigDecimal.valueOf(195)
+    BigDecimal number = BigDecimal.valueOf(32416187567)
     def isOddComNum1 = Number.nextPrimeFrom(number)
     def isOddComNum2 = Number._nextPrimeFrom(number)
     expect:
