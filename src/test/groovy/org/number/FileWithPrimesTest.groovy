@@ -29,7 +29,30 @@ import spock.lang.Specification
  */
 class FileWithPrimesTest extends Specification {
 
-  def "Test file from 3"() {
+  def "Test file with double"() {
+    setup:
+    def file = this.getClass().getResource('/primes_5_999983.txt')
+    def primes = []
+    file.eachLine { n ->
+      primes << (n as int)
+    }
+    for(int i = 0; i < primes.size(); i++) {
+      def t1 = System.currentTimeMillis()
+      if(primes[i+1] != null) {
+        def next = primes[i+1]
+        def previous = primes[i]
+        def result = Number._nextPrimeFrom(previous)
+        def t2 = System.currentTimeMillis() - t1
+        if(next != result) {
+          println "previous: ${previous},  next: ${next} -> result: ${result} == ${next == result} (${t2}ms)"
+        }
+        expect:
+        next == result
+      }
+    }
+  }
+
+  def "Test file with bigdecimal"() {
     setup:
     def file = this.getClass().getResource('/primes_5_999983.txt')
     def primes = []

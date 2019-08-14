@@ -22,8 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 
 package org.number;
 
-import ch.obermuhlner.math.big.BigDecimalMath;
-
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
@@ -43,18 +41,17 @@ public class Number {
   public final static BigDecimal TOW = BigDecimal.valueOf(2);
   public final static BigDecimal THREE = BigDecimal.valueOf(3);
   public final static BigDecimal FOUR = BigDecimal.valueOf(4);
-  public final static BigDecimal FIVE = BigDecimal.valueOf(5);
+  public final static BigDecimal SIX = BigDecimal.valueOf(6);
   public final static MathContext mathContext = new MathContext(15);
 
 
   public static boolean _isOddCompositeNumber(double number) {
     boolean isValid = false;
-    double base = 2;
     double aLimit = Math.ceil(Math.log(number) + number / 2);
     double bLimit = Math.ceil(Math.sqrt(number - aLimit));
     double iLimit = Math.ceil(bLimit - (bLimit / 4));
     for(double i = 0; i < iLimit && !isValid; i++) {
-      base += 4;
+      double base = (i*4) + 6;
       double quotient = number / base;
       isValid = quotient % 0.5 == 0;
       if(isValid) {
@@ -68,12 +65,11 @@ public class Number {
 
   public static boolean isOddCompositeNumber(BigDecimal number) {
     boolean isValid = false;
-    BigDecimal base = TOW;
     BigDecimal aLimit = log(number, mathContext).add(number.divide(TOW)).setScale(0, CEILING);
     BigDecimal bLimit = sqrt(number.subtract(aLimit), mathContext).setScale(0, CEILING);
     BigDecimal iLimit = bLimit.subtract(bLimit.divide(FOUR)).setScale(0, CEILING);
     for(BigDecimal i = ZERO; i.compareTo(iLimit) == -1 && !isValid; i = i.add(ONE)) {
-      base = base.add(FOUR);
+      BigDecimal base = i.multiply(FOUR).add(SIX);
       BigDecimal quotient = number.divide(base, 16, RoundingMode.CEILING);
       isValid = quotient.remainder(BigDecimal.valueOf(0.5)).compareTo(ZERO) == 0;
       if(isValid) {
