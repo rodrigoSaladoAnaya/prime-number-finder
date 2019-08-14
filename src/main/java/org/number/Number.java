@@ -42,8 +42,6 @@ public class Number {
   public final static BigDecimal TOW = BigDecimal.valueOf(2);
   public final static BigDecimal THREE = BigDecimal.valueOf(3);
   public final static BigDecimal FOUR = BigDecimal.valueOf(4);
-  public final static BigDecimal FIVE = BigDecimal.valueOf(5);
-  public final static BigDecimal TEN = BigDecimal.valueOf(10);
   public final static MathContext mathContext = new MathContext(15);
 
 
@@ -52,13 +50,13 @@ public class Number {
     double base = 2;
     double limitPartA = Math.log(number) + number / 2;
     double limitPartB = Math.ceil(Math.sqrt(number - limitPartA) / 4);
-    double iLimit = Math.floor(limitPartB - (limitPartB/4));
+    double iLimit = Math.floor(limitPartB - (limitPartB / 4));
     for(double i = 0; i < iLimit && !isValid; i++) {
       base += 4;
-      double quotient = number/base;
+      double quotient = number / base;
       isValid = quotient % 0.5 == 0;
       if(isValid) {
-        double j = Math.floor(number/base)-1;
+        double j = Math.floor(number / base) - 1;
         double next = (2 * i + 3) * (2 * j + 3);
         isValid = next == number;
       }
@@ -123,6 +121,5 @@ public class Number {
     }
     return next;
   }
-
-
+  
 }
