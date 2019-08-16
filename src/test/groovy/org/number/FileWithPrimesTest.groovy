@@ -53,7 +53,6 @@ class FileWithPrimesTest extends Specification {
     }
   }
 
-  @Ignore
   def "Test file with bigdecimal"() {
     setup:
     def file = this.getClass().getResource('/primes_11_999983.txt')

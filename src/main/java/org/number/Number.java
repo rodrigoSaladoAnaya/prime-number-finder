@@ -46,8 +46,8 @@ public class Number {
 
 
   public static boolean _isOddCompositeNumber(double number) {
-    double j = 1;
     boolean result = false;
+    double j = 1;
     for(double i = 0; i < j && !result; i++) {
       double base = ( i * 4 ) + 6;
       double quotient = number / base;
@@ -58,21 +58,16 @@ public class Number {
   }
 
   public static boolean isOddCompositeNumber(BigDecimal number) {
-    boolean isValid = false;
-    BigDecimal aLimit = log(number, mathContext).add(number.divide(TOW)).setScale(0, CEILING);
-    BigDecimal bLimit = sqrt(number.subtract(aLimit), mathContext).setScale(0, CEILING);
-    BigDecimal iLimit = bLimit.subtract(bLimit.divide(FOUR)).setScale(0, CEILING);
-    for(BigDecimal i = ZERO; i.compareTo(iLimit) == -1 && !isValid; i = i.add(ONE)) {
+    boolean result = false;
+    BigDecimal j = ONE;
+    for(BigDecimal i = ZERO; i.compareTo(j) == -1 && !result; i = i.add(ONE)) {
       BigDecimal base = i.multiply(FOUR).add(SIX);
       BigDecimal quotient = number.divide(base, 16, RoundingMode.CEILING);
-      isValid = quotient.remainder(BigDecimal.valueOf(0.5)).compareTo(ZERO) == 0;
-      if(isValid) {
-        BigDecimal j = number.divide(base, FLOOR).subtract(ONE);
-        BigDecimal next = TOW.multiply(i).add(THREE).multiply(TOW.multiply(j).add(THREE));
-        isValid = next.equals(number);
-      }
+      result = quotient.remainder(BigDecimal.valueOf(0.5)).compareTo(ZERO) == 0;
+      j = number.divide(base, FLOOR).subtract(ONE);
+      BigDecimal next = TOW.multiply(i).add(THREE).multiply(TOW.multiply(j).add(THREE));
     }
-    return isValid;
+    return result;
   }
 
   public static double _nextPrimeFrom(double previous) {
