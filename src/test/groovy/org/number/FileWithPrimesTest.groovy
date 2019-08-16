@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 
 package org.number
 
+import spock.lang.Ignore
 import spock.lang.Specification
 
 /**
@@ -31,7 +32,7 @@ class FileWithPrimesTest extends Specification {
 
   def "Test file with double"() {
     setup:
-    def file = this.getClass().getResource('/primes_5_999983.txt')
+    def file = this.getClass().getResource('/primes_11_999983.txt')
     def primes = []
     file.eachLine { n ->
       primes << (n as int)
@@ -52,9 +53,10 @@ class FileWithPrimesTest extends Specification {
     }
   }
 
+  @Ignore
   def "Test file with bigdecimal"() {
     setup:
-    def file = this.getClass().getResource('/primes_5_999983.txt')
+    def file = this.getClass().getResource('/primes_11_999983.txt')
     def primes = []
     file.eachLine { n ->
       primes << (n as int)

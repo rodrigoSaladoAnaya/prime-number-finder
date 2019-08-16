@@ -37,6 +37,6 @@ public class Main {
     System.out.format("1) Finding next prime nextPrimeFrom [%s]\n", previous);
     BigDecimal next = Number.nextPrimeFrom(previous);
     float tDelta = (System.currentTimeMillis() - tStart);
-    System.out.format("2) The next prime number nextPrimeFrom [%s] is [%s] (%s)milliseconds (%s)seconds (%s)minutes\n", previous, next, tDelta, tDelta/1000, tDelta/1000/60);
+    System.out.println("2) The next prime number nextPrimeFrom ["+previous+"] is ["+next+"]  ("+tDelta+"milliseconds)  ("+(tDelta/1000)+"seconds)  ("+(tDelta/1000/60)+"minutes)");
   }
 }

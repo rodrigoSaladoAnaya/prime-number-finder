@@ -46,21 +46,15 @@ public class Number {
 
 
   public static boolean _isOddCompositeNumber(double number) {
-    boolean isValid = false;
-    double aLimit = Math.ceil(Math.log(number) + number / 2);
-    double bLimit = Math.ceil(Math.sqrt(number - aLimit));
-    double iLimit = Math.ceil(bLimit - (bLimit / 4));
-    for(double i = 0; i < iLimit && !isValid; i++) {
-      double base = (i*4) + 6;
+    double j = 1;
+    boolean result = false;
+    for(double i = 0; i < j && !result; i++) {
+      double base = ( i * 4 ) + 6;
       double quotient = number / base;
-      isValid = quotient % 0.5 == 0;
-      if(isValid) {
-        double j = Math.floor(number / base) - 1;
-        double next = (2 * i + 3) * (2 * j + 3);
-        isValid = next == number;
-      }
+      result = quotient % 0.5 == 0;
+      j = Math.floor(number / base) - 1;
     }
-    return isValid;
+    return result;
   }
 
   public static boolean isOddCompositeNumber(BigDecimal number) {
