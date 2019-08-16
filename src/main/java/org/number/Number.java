@@ -23,14 +23,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 package org.number;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 
-import static ch.obermuhlner.math.big.BigDecimalMath.log;
-import static ch.obermuhlner.math.big.BigDecimalMath.sqrt;
 import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.ZERO;
-import static java.math.RoundingMode.CEILING;
 import static java.math.RoundingMode.FLOOR;
 
 /**
@@ -42,8 +38,6 @@ public class Number {
   public final static BigDecimal THREE = BigDecimal.valueOf(3);
   public final static BigDecimal FOUR = BigDecimal.valueOf(4);
   public final static BigDecimal SIX = BigDecimal.valueOf(6);
-  public final static MathContext mathContext = new MathContext(15);
-
 
   public static boolean _isOddCompositeNumber(double number) {
     boolean result = false;
@@ -65,7 +59,6 @@ public class Number {
       BigDecimal quotient = number.divide(base, 16, RoundingMode.CEILING);
       result = quotient.remainder(BigDecimal.valueOf(0.5)).compareTo(ZERO) == 0;
       j = number.divide(base, FLOOR).subtract(ONE);
-      BigDecimal next = TOW.multiply(i).add(THREE).multiply(TOW.multiply(j).add(THREE));
     }
     return result;
   }
