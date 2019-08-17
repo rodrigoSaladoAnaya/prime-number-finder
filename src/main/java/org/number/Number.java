@@ -54,11 +54,19 @@ public class Number {
   public static boolean isOddCompositeNumber(BigDecimal number) {
     boolean result = false;
     BigDecimal j = ONE;
+
+    System.out.println("["+number+"]");
+
     for(BigDecimal i = ZERO; i.compareTo(j) == -1 && !result; i = i.add(ONE)) {
       BigDecimal base = i.multiply(FOUR).add(SIX);
-      BigDecimal quotient = number.divide(base, 16, RoundingMode.CEILING);
-      result = quotient.remainder(BigDecimal.valueOf(0.5)).compareTo(ZERO) == 0;
+      BigDecimal index = number.divide(base, 16, RoundingMode.CEILING).remainder(BigDecimal.valueOf(0.5));
+      result = index.compareTo(ZERO) == 0;
       j = number.divide(base, FLOOR).subtract(ONE);
+
+      if(i.remainder(new BigDecimal(1_00_000)).compareTo(ZERO) == 0) {
+        System.out.println("    -> i: " + i + ", j: " + j + ", diff: " + j.subtract(i) + ", index: " + index);
+      }
+      
     }
     return result;
   }
