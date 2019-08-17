@@ -18,6 +18,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 
 package org.number
 
+
 import spock.lang.Specification
 
 /**
@@ -27,7 +28,7 @@ class NumberTest extends Specification {
 
   def "Test if a number is even"() {
     expect:
-    Number.isEvenNumber(number) == response
+    Number.isEven(number) == response
 
     where:
     number | response
@@ -56,7 +57,7 @@ class NumberTest extends Specification {
 
   def "Test if a number is odd composite number"() {
     expect:
-    Number.isOddCompositeNumber(number) == response
+    Number.isOddComposite(number) == response
 
     where:
     number | response
@@ -66,5 +67,38 @@ class NumberTest extends Specification {
     15     | true
     17     | false
     19     | false
+  }
+
+  def "Test if a number is prime number"() {
+    expect:
+    Number.isPrime(number) == response
+
+    where:
+    number | response
+    1      | false
+    2      | true
+    3      | true
+    5      | true
+    7      | true
+    9      | false
+    11     | true
+    13     | true
+    15     | false
+    17     | true
+    19     | true
+  }
+
+  def "Test file with bigdecimal"() {
+    setup:
+    def file = this.getClass().getResource('/primes_1.txt')
+    def primes = []
+    file.eachLine { n ->
+      primes << (n as int)
+    }
+    for(int i = 0; i < 100; i++) {
+      boolean response = Number.isPrime(i)
+      expect:
+      assert primes.contains(i) == response
+    }
   }
 }

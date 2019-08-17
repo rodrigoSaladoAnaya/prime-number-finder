@@ -22,6 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 
 package org.number;
 
+import java.math.BigDecimal;
+
 /**
  * @author rodrigo_salado
  */
@@ -29,7 +31,7 @@ public class Main {
 
   public static void main(String[] args) {
     float tStart = System.currentTimeMillis();
-    String number = args[0];
+    BigDecimal number = new BigDecimal(args[0]);
     boolean response = Number.isPrime(number);
     float tDelta = System.currentTimeMillis() - tStart;
     System.out.println("The number [" + number + "] is prime? [" + response + "]. (" + tDelta + "milliseconds)  (" + (tDelta/1000) + "seconds)  (" + (tDelta/1000/60) + "minutes)");
