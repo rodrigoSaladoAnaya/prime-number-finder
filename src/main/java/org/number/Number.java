@@ -24,13 +24,17 @@ package org.number;
 
 import java.math.BigDecimal;
 
+import static java.math.BigDecimal.ZERO;
+
 /**
  * @author rodrigo_salado
  */
 public class Number {
 
+  public final static BigDecimal TOW = BigDecimal.valueOf(2);
+
   public static boolean isEvenNumber(BigDecimal number) {
-    return false;
+    return number.remainder(TOW).compareTo(ZERO) == 0;
   }
 
   public static boolean isPrime(String number) {

@@ -18,7 +18,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 
 package org.number
 
-import org.junit.Ignore
+import spock.lang.Ignore
 import spock.lang.Specification
 
 /**
