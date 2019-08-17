@@ -30,10 +30,10 @@ import java.math.BigDecimal;
 public class Main {
 
   public static void main(String[] args) {
-    float tStart = System.currentTimeMillis();
+    double tStart = System.currentTimeMillis();
     BigDecimal number = new BigDecimal(args[0]);
     boolean response = Number.isPrime(number);
-    float tDelta = System.currentTimeMillis() - tStart;
+    double tDelta = System.currentTimeMillis() - tStart;
     System.out.println("The number [" + number + "] is prime? [" + response + "]. (" + tDelta + "milliseconds)  (" + (tDelta/1000) + "seconds)  (" + (tDelta/1000/60) + "minutes)");
 
   }
