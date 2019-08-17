@@ -24,35 +24,23 @@ import spock.lang.Specification
 /**
  * @author rodrigo_salado
  */
-class IsPrimeTest extends Specification {
+class PrimeNumberTest extends Specification {
 
-  @Ignore
-  def "Basic test if a number is prime"() {
+  def "Test if the number is valid candidate (prime number or odd composite number)"() {
     expect:
-    Number.isPrime(number) == response
+    PrimeNumber.isValidCandidate(number) == response
 
     where:
-    number   | response
-    '0'      | true
-    '1'      | true
-    '2'      | true
-    '3'      | true
-    '4'      | true
-    '5'      | true
-    '6'      | true
-    '7'      | true
-    '8'      | true
-    '9'      | true
-    '10'     | true
-    '11'     | true
-    '12'     | true
-    '13'     | true
-    '14'     | true
-    '15'     | true
-    '16'     | true
-    '17'     | true
-    '18'     | true
-    '19'     | true
-    '20'     | true
+    number | response
+    1      | true
+    3      | true
+    5      | true
+    7      | true
+    9      | true
+    11     | true
+    13     | true
+    15     | true
+    17     | true
+    19     | true
   }
 }
