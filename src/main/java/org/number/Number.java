@@ -23,8 +23,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 package org.number;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
+import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.ZERO;
+import static java.math.RoundingMode.FLOOR;
 
 /**
  * @author rodrigo_salado
@@ -32,13 +35,23 @@ import static java.math.BigDecimal.ZERO;
 public class Number {
 
   public final static BigDecimal TOW = BigDecimal.valueOf(2);
+  public final static BigDecimal FOUR = BigDecimal.valueOf(4);
+  public final static BigDecimal SIX = BigDecimal.valueOf(6);
 
   public static boolean isEvenNumber(BigDecimal number) {
     return number.remainder(TOW).compareTo(ZERO) == 0;
   }
 
   public static boolean isOddCompositeNumber(BigDecimal number) {
-    return false;
+    boolean response = false;
+    BigDecimal j = ONE;
+    for(BigDecimal i = ZERO; i.compareTo(j) == -1 && !response; i = i.add(ONE)) {
+      BigDecimal base = i.multiply(FOUR).add(SIX);
+      BigDecimal index = number.divide(base, 16, RoundingMode.CEILING).remainder(BigDecimal.valueOf(0.5));
+      j = number.divide(base, FLOOR).subtract(ONE);
+      response = index.compareTo(ZERO) == 0;
+    }
+    return response;
   }
 
   public static boolean isPrime(String number) {
