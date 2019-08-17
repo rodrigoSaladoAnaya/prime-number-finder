@@ -22,12 +22,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 
 package org.number;
 
+import java.math.BigDecimal;
+
 /**
  * @author rodrigo_salado
  */
 public class Number {
 
+  public static boolean isEvenNumber(BigDecimal number) {
+    return false;
+  }
+
   public static boolean isPrime(String number) {
+
     return false;
   }
 

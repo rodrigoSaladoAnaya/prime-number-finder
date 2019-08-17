@@ -18,18 +18,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 
 package org.number
 
-import org.junit.Ignore
 import spock.lang.Specification
 
 /**
  * @author rodrigo_salado
  */
-class IsPrimeTest extends Specification {
+class NumberTest extends Specification {
 
-  @Ignore
-  def "Basic test if a number is prime"() {
+  def "Test if a number is even"() {
     expect:
-    Number.isPrime(number) == response
+    Number.isEvenNumber(number) == response
 
     where:
     number   | response
