@@ -37,8 +37,11 @@ public class Number {
     return number.remainder(TOW).compareTo(ZERO) == 0;
   }
 
-  public static boolean isPrime(String number) {
+  public static boolean isOddCompositeNumber(BigDecimal number) {
+    return false;
+  }
 
+  public static boolean isPrime(String number) {
     return false;
   }
 
