@@ -27,43 +27,8 @@ package org.number;
  */
 public class Number {
 
-  public static boolean isOddCompositeNumber(double number) {
-    boolean isValid = false;
-    double base = 2;
-    double limitPartA = Math.log(number) + number / 2;
-    double limitPartB = Math.ceil(Math.sqrt(number - limitPartA) / 4);
-    double iLimit = limitPartB - (limitPartB/4);
-    for(double i = 0; i < iLimit && !isValid; i++) {
-      base += 4;
-      double quotient = number/base;
-      isValid = quotient % 0.5 == 0;
-      if(isValid) {
-        double j = Math.floor(number/base)-1;
-        double next = (2 * i + 3) * (2 * j + 3);
-        isValid = next == number;
-      }
-    }
-    return isValid;
-  }
-
-  public static double nextPrimeFrom(double previous) {
-    if(previous % 2 == 0) {
-      previous--;
-    }
-    double next = 0;
-    double head = previous - 2;
-    double tail = 2;
-    for(double number = previous + 1; next == 0; number++) {
-      int modHead = (int)(number - head) % 2;
-      int modTail = (int)(number - tail) % 2;
-      if(number < 0) {
-        throw new RuntimeException("Posible number overflow.");
-      }
-      if(modHead == 0 && modTail == 1 && !Number.isOddCompositeNumber(number)) {
-        next = number;
-      }
-    }
-    return next;
+  public static boolean isPrime(String number) {
+    return false;
   }
 
 }
