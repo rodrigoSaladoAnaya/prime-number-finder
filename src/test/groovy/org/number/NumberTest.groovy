@@ -95,7 +95,7 @@ class NumberTest extends Specification {
     file.eachLine { n ->
       primes << (n as int)
     }
-    for(int i = 0; i < 100; i++) {
+    for(int i = 0; i < primes.size(); i++) {
       boolean response = Number.isPrime(i)
       expect:
       assert primes.contains(i) == response

@@ -35,6 +35,11 @@ public class Main {
     boolean response = Number.isPrime(number);
     double tDelta = System.currentTimeMillis() - tStart;
     System.out.println("[" + number + "] <<<" + response + ">>> (" + tDelta + "milliseconds)  (" + (tDelta/1000) + "seconds)  (" + (tDelta/1000/60) + "minutes)");
-
+    /**/
+    /*BigDecimal number = Number.TOW;
+    while (true) {
+      number = number.add(BigDecimal.ONE);
+      Number.isPrime(number);
+    }/**/
   }
 }
