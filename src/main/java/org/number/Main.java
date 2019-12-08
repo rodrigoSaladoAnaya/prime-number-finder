@@ -30,16 +30,9 @@ import java.math.BigDecimal;
 public class Main {
 
   public static void main(String[] args) {
-    double tStart = System.currentTimeMillis();
     BigDecimal number = new BigDecimal(args[0]);
-    boolean response = Number.isPrime(number);
-    double tDelta = System.currentTimeMillis() - tStart;
-    System.out.println("[" + number + "] <<<" + response + ">>> (" + tDelta + "milliseconds)  (" + (tDelta/1000) + "seconds)  (" + (tDelta/1000/60) + "minutes)");
-    /**/
-    /*BigDecimal number = Number.TOW;
-    while (true) {
-      number = number.add(BigDecimal.ONE);
-      Number.isPrime(number);
-    }/**/
+
+    System.out.format("<<[%s] -> %s>>\n", number, Number.isOddComposite(number));
+
   }
 }

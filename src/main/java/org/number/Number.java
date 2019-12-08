@@ -22,79 +22,51 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 
 package org.number;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.math.BigDecimal;
-import java.math.MathContext;
 
 import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.ZERO;
 import static java.math.RoundingMode.CEILING;
 import static java.math.RoundingMode.FLOOR;
-import static ch.obermuhlner.math.big.BigDecimalMath.sqrt;
 
 /**
  * @author rodrigo_salado
  */
 public class Number {
-
   public final static BigDecimal TOW = BigDecimal.valueOf(2);
   public final static BigDecimal THREE = BigDecimal.valueOf(3);
   public final static BigDecimal FOUR = BigDecimal.valueOf(4);
   public final static BigDecimal SIX = BigDecimal.valueOf(6);
 
-  public final static MathContext mathContext = new MathContext(15);
-
-  public static boolean isEven(BigDecimal number) {
-    return number.remainder(TOW).compareTo(ZERO) == 0;
-  }
+  final static Logger log = LoggerFactory.getLogger("org.number.Number");
 
   public static boolean isOddComposite(BigDecimal number) {
-    BigDecimal W = number.add(THREE).divide(SIX, CEILING).subtract(TOW);
-    BigDecimal L = sqrt(W, mathContext).setScale(0, CEILING).subtract(TOW);
-    BigDecimal R = L;
-    if(R.compareTo(ZERO) < 0) {
-      R = L.add(TOW);
+    log.info("Number -> {}", number);
+    BigDecimal z = ZERO;
+    BigDecimal limit = ZERO;
+    for(;limit.compareTo(number) < 0; z = z.add(BigDecimal.ONE)) {
+      limit = TOW.multiply(z).add(THREE).multiply(TOW.multiply(z).add(THREE));
     }
-    BigDecimal siblings = ZERO;
-    boolean test = false;
-    for(BigDecimal i = R; i.compareTo(W) <= 0 && !test && siblings.compareTo(R.add(SIX)) <= 0; i = i.add(ONE)) {
-      for(BigDecimal j = ZERO; j.compareTo(W) <= 0 && !test && siblings.compareTo(R.add(SIX)) <= 0; j = j.add(ONE)) {
-        //System.out.format("%s, %s\n", i, j);
+    log.info("Limit: {}, Z: {}", limit, z);
+
+    boolean result = false;
+    BigDecimal j;
+    BigDecimal base;
+    BigDecimal quotient;
+    for(BigDecimal i = ZERO; !result && i.compareTo(z) < 0; i = i.add(ONE)) {
+      base = i.multiply(FOUR).add(SIX);
+      quotient = number.divide(base, 16, CEILING).remainder(BigDecimal.valueOf(0.5));
+      result = quotient.compareTo(ZERO) == 0;
+
+      if(result) {
+        j = number.divide(base, FLOOR).subtract(ONE);
         BigDecimal next = TOW.multiply(i).add(THREE).multiply(TOW.multiply(j).add(THREE));
-        BigDecimal diff = next.subtract(number);
-        if(diff.compareTo(ZERO) == 0) {
-          test = true;
-        } else if(diff.abs().compareTo(SIX) == -1) {
-          siblings = siblings.add(ONE);
-        }
+        log.info("({},{}) -> {} :: {}", i, j, result?"<<OK>>": "", next);
       }
     }
-    System.out.format("N: %s, W: %s, L: %s, R: %s, siblings: %s\n", number, W, L, R, siblings);
-    return test;
-
-    //boolean response = false;
-    /*BigDecimal base;
-    BigDecimal index;
-    BigDecimal j = ONE;
-    BigDecimal jLimit = number.add(THREE).divide(SIX, CEILING).subtract(TOW);
-    System.out.format("l: %s\n", jLimit);
-    for(BigDecimal i = ZERO; i.compareTo(j) == -1 && !response; i = i.add(ONE)) {
-      base = i.multiply(FOUR).add(SIX);
-      index = number.divide(base, 16, CEILING).remainder(BigDecimal.valueOf(0.5));
-      j = number.divide(base, FLOOR).subtract(ONE);
-      boolean test = index.compareTo(ZERO) == 0;
-      System.out.format("[%s] %s, %s\n", number, i, j);
-      response = test;
-    }
-    return response;/**/
+    return !result;
   }
-
-  public static boolean isPrime(BigDecimal number) {
-    if(number.compareTo(THREE) == 0) return true;
-    if(number.compareTo(TOW) == 0) return true;
-    if(number.compareTo(ONE) == 0) return false;
-    if(isEven(number)) return false;
-    if(isOddComposite(number)) return false;
-    return true;
-  }
-
 }

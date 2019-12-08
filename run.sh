@@ -1,1 +1,1 @@
-./gradlew run --args="$1"
+./gradlew clean run --args="$1"
