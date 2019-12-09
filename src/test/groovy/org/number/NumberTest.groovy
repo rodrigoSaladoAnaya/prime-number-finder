@@ -26,4 +26,18 @@ import spock.lang.Specification
  */
 class NumberTest extends Specification {
 
+  def "Test file with bigdecimal"() {
+    setup:
+    def file = this.getClass().getResource('/primes_1.txt')
+    def primes = []
+    file.eachLine { n ->
+      primes << (n as int)
+    }
+    for(def i = 9; i < primes.size(); i++) {
+      boolean response = Number.isPrime(i)
+      expect:
+      assert primes.contains(i) == response
+    }
+  }
+
 }

@@ -22,17 +22,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 
 package org.number;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.math.BigDecimal;
 
 /**
  * @author rodrigo_salado
  */
 public class Main {
+  private final static Logger log = LoggerFactory.getLogger("org.number.Main");
 
   public static void main(String[] args) {
     BigDecimal number = new BigDecimal(args[0]);
-
-    System.out.format("<<[%s] -> %s>>\n", number, Number.isOddComposite(number));
-
+    boolean isPrime = Number.isPrime(number);
+    log.info("Number is prime? {}", isPrime);
   }
 }
