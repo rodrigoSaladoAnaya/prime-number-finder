@@ -44,39 +44,41 @@ public class Number {
   public final static BigDecimal FOUR = BigDecimal.valueOf(4);
   public final static BigDecimal FIVE = BigDecimal.valueOf(5);
   public final static BigDecimal SIX = BigDecimal.valueOf(6);
+  public final static BigDecimal SEVEN = BigDecimal.valueOf(7);
+  public final static BigDecimal TEN = BigDecimal.valueOf(10);
 
   final static Logger log = LoggerFactory.getLogger("org.number.Number");
   public final static MathContext mathContext = new MathContext(15);
 
   public static boolean isPrime(BigDecimal number) {
-    if(number.remainder(TWO).compareTo(ZERO) == 0) {
-      return false;
-    }
-    if(number.remainder(FIVE).compareTo(ZERO) == 0) {
-      return false;
-    }
     boolean result = false;
+
+    if(number.remainder(TWO).compareTo(ZERO)   == 0) { return result; }
+    if(number.remainder(THREE).compareTo(ZERO) == 0) { return result; }
+    if(number.remainder(FIVE).compareTo(ZERO)  == 0) { return result; }
+    if(number.remainder(SEVEN).compareTo(ZERO) == 0) { return result; }
+
     BigDecimal iLimit = sqrt(number, mathContext).subtract(THREE).divide(TWO).setScale(0, CEILING).add(ONE);
-
     log.info("Number: {}, iLimit: {}", number, iLimit);
-
     BigDecimal j;
     BigDecimal base;
     BigDecimal quotient;
     for(BigDecimal i = ZERO; !result && i.compareTo(iLimit) < 0; i = i.add(ONE)) {
-      base = i.multiply(FOUR).add(SIX);
-      quotient = number.divide(base, 16, CEILING).remainder(BigDecimal.valueOf(0.5));
-      result = quotient.compareTo(ZERO) == 0;
-
+      boolean isMod5 = i.remainder(TEN).compareTo(ONE) != 0 || i.remainder(TEN).compareTo(SIX) != 0;
+      if(isMod5) {
+        base = i.multiply(FOUR).add(SIX);
+        quotient = number.divide(base, 16, CEILING).remainder(BigDecimal.valueOf(0.5));
+        result = quotient.compareTo(ZERO) == 0;
+        if(result) {
+          j = number.divide(base, FLOOR).subtract(ONE);
+          BigDecimal next = TWO.multiply(i).add(THREE).multiply(TWO.multiply(j).add(THREE));
+          log.info("({},{}) -> {} :: {}", i, j, result?"<<OK>>": "", next);
+        }
+      }
       if(i.remainder(new BigDecimal(1_000_000)).compareTo(ZERO) == 0) {
         log.info("-> ({}) {}%", i, (i.multiply(new BigDecimal(100)).divide(iLimit, FLOOR)));
       }
 
-      if(result) {
-        j = number.divide(base, FLOOR).subtract(ONE);
-        BigDecimal next = TWO.multiply(i).add(THREE).multiply(TWO.multiply(j).add(THREE));
-        log.info("({},{}) -> {} :: {}", i, j, result?"<<OK>>": "", next);
-      }
     }
     return !result;
   }

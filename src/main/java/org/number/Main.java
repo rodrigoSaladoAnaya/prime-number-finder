@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 
 package org.number;
 
+import io.reactivex.disposables.Disposable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,10 +33,11 @@ import java.math.BigDecimal;
  */
 public class Main {
   private final static Logger log = LoggerFactory.getLogger("org.number.Main");
+  private static Disposable testPrime;
 
   public static void main(String[] args) {
     BigDecimal number = new BigDecimal(args[0]);
-    boolean isPrime = Number.isPrime(number);
-    log.info("Number is prime? {}", isPrime);
+    boolean prime = Number.isPrime(number);
+    log.info("Number is prime? {}", prime);
   }
 }
