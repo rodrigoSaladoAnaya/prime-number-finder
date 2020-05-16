@@ -19,7 +19,7 @@ public class PrimeNumber {
   public static boolean test(BigDecimal N) {
     var result = false;
     if(N.remainder(TWO).compareTo(ZERO) != 0) {
-      result = !OddCompositeNumber.test(N, BigDecimal.ZERO);
+      result = !OddCompositeNumber.test(N);
     }
     return result;
   }

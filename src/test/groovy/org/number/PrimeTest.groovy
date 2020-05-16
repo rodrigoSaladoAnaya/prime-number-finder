@@ -18,8 +18,7 @@ class PrimeTest extends Specification {
     }
     for(def i = 11; i <= primes.last(); i+=2) {
       boolean response = PrimeNumber.test(i)
-      //boolean response = !OddCompositeNumber.test(i)
-      println "TEST -> i: ${i}, response: ${response}"
+      println "Number: ${i} is prime? -> ${response}"
       expect:
       assert primes.contains(i) == response
     }
